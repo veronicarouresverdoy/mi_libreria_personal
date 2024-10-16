@@ -16,6 +16,11 @@ app.get('/', (req: Express.Request, res: Express.Response) => {
   res.sendFile(targetFilePath);
 });
 
+app.get("/pagina2", (req: Express.Request, res: Express.Response)=>{
+  const targetFilePath = path.join(publicPath, "/pagina2.html");
+  res.sendFile(targetFilePath);
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
