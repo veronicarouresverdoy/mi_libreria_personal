@@ -11,7 +11,7 @@ router.get('/user', (req: Express.Request, res: Express.Response) => {
   });
   
 router.post("/user", async (req: Express.Request, res: Express.Response) => {
-    const result = newUser(req.body);
+    const result = await newUser(req.body);
     res.send(result);
   });
 
