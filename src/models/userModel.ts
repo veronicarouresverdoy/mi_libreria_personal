@@ -5,3 +5,15 @@ export async function saveNewUser(data:any):Promise<any>{
     const result = await pool.query(queryString);
     return result.rows;
 }
+
+export async function getUsers():Promise<any>{  
+    const queryString = `SELECT * FROM "user"`;
+    const result = await pool.query(queryString);
+    return result.rows;
+}
+
+export async function findUserById(id:string):Promise<any>{
+    const queryString = `SELECT * FROM "user" WHERE "id" = ${id}`;
+    const result = await pool.query(queryString);
+    return result.rows;
+}
