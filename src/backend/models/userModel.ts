@@ -14,13 +14,13 @@ export async function getUsers():Promise<any>{
     return result.rows;
 }
 
-export async function findUserById(id:number):Promise<any>{
+export async function findUserById(id:string):Promise<any>{
     const queryString = `SELECT * FROM "user" WHERE "id" = ${id}`;
     const result = await pool.query(queryString);
     return result.rows;
 }
 
-export async function deleteUserById(id:number):Promise<any>{
+export async function deleteUserById(id:string):Promise<any>{
     const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
     const result = await pool.query(queryString);
     return result.rows;

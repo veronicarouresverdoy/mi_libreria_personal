@@ -22,12 +22,12 @@ export async function getAllUsers():Promise<string>{
     return result;
 }
 
-export async function getUser(id:number):Promise<string>{
+export async function getUser(id:string):Promise<string>{
     const result = await findUserById(id);
     return result;
 }
 
-export async function deleteUser(id:number):Promise<string>{
+export async function deleteUser(id:string):Promise<string>{
     const result = await deleteUserById(id);
     return result;
 }

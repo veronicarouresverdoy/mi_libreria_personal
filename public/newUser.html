@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./src/frontend/validateUserForm.js"></script>
     <title>Registro de usuario</title>
 </head>
 <body>
-    <form action="/api/v1/users" method="POST">
+    <form action="/api/v1/users" method="POST" id="userForm">
         <p>
             <label for="name-field">Nombre: </label>
             <input type="text" name="name" id="name-field">
@@ -20,10 +21,10 @@
             <input type="text" name="username" id="username-field">
         </p>
         <p>
-            <label for="pwd-field">Password</label>
-            <input type="password" name="password" id="pwd-field">
+            <label for="password-field">Password</label>
+            <input type="password" name="password" id="password-field">
         </p>
-        <p></p>
+        <p>
             <label for="email-field">Email</label>
             <input type="email" name="email" id="email-field">
         </p>
