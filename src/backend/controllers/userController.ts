@@ -1,5 +1,5 @@
 import { deleteUserById, findUserById, getUsers, saveNewUser } from "../models/userModel.js";
-import { User } from "../types/user.js";
+import { User } from "../types/User.js";
 
 
 export async function newUser(user: User):Promise<string>{

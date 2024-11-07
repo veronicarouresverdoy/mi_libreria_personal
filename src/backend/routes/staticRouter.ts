@@ -1,7 +1,6 @@
 import Express from 'express';
 import path from 'path';
 import { publicPath } from '../config/configData.js';
-import { getAllUsers, getUser, newUser } from '../controllers/userController.js';
 
 const router = Express.Router();
 

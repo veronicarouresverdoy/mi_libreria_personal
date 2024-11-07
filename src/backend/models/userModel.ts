@@ -1,5 +1,6 @@
 import pool from "../config/configDb.js";
-import { User } from "../types/user.js";
+import { User } from "../types/User.js";
+
 
 export async function saveNewUser(user:User):Promise<any>{
     const queryString = `INSERT INTO "user" ("userName", "name", "first_surname", "password", "email") VALUES ('${user.userName}', '${user.name}', '${user.first_surname}', '${user.password}','${user.email}')`;
