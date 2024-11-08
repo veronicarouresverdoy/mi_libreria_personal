@@ -1,4 +1,5 @@
 import pool from "../config/configDb.js";
+import { DeleteResult } from "../types/DeleteResult.js";
 import { User } from "../types/User.js";
 
 
@@ -20,8 +21,28 @@ export async function findUserById(id:string):Promise<any>{
     return result.rows;
 }
 
-export async function deleteUserById(id:string):Promise<any>{
-    const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
-    const result = await pool.query(queryString);
-    return result.rows;
+export async function deleteUserById(id: string): Promise<DeleteResult> {
+    try {
+        const queryString = `DELETE FROM "user" WHERE "id" = ${id}`;
+        const result = await pool.query(queryString);
+        
+        if (result.rowCount && result.rowCount > 0) {
+            return {
+                success: true,
+                message: 'Usuario eliminado correctamente',
+                rowsAffected: result.rowCount
+            };
+        } else {
+            return {
+                success: false,
+                message: 'No se encontró el usuario',
+                rowsAffected: 0
+            };
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: `Error al eliminar usuario: ${(error as Error).message}`
+        };
+    }
 }   

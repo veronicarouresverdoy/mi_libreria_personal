@@ -1,7 +1,6 @@
 class FormValidator {
     constructor(formId) {
         this.form = document.querySelector(`#${formId}`);
-        console.log(this.form);
         this.errorMessages = new Map();
         this.initializeValidation();
     }
@@ -63,14 +62,11 @@ class FormValidator {
     showError(fieldName, message) {
         var _a, _b;
         const input = this.form.querySelector(`#${fieldName}-field`);
-        console.log(input);
         let errorDiv = (_a = input.parentElement) === null || _a === void 0 ? void 0 : _a.querySelector('.error-message');
-        console.log(errorDiv);
         if (!errorDiv) {
             errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             (_b = input.parentElement) === null || _b === void 0 ? void 0 : _b.appendChild(errorDiv);
-            console.log(input.parentElement);
         }
         errorDiv.textContent = message;
         input.classList.add('error');

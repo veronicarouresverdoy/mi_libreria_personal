@@ -2,6 +2,7 @@ import Express from 'express';
 import { User } from '../types/User.js';
 import { deleteUser, getAllUsers, getUser, newUser } from '../controllers/userController.js';
 import { validateNumericParams } from '../middlewares/validateNumericParams.js';
+import { DeleteResult } from '../types/DeleteResult.js';
 
 const userRouter = Express.Router();
 
@@ -22,8 +23,11 @@ userRouter.post("/", async (req: Express.Request, res: Express.Response) => {
 });
 
 userRouter.delete("/:id", validateNumericParams, async (req: Express.Request, res: Express.Response) => {  
-    const result = await deleteUser(req.params.id);
-    res.send(result);
+    const result: DeleteResult = await deleteUser(req.params.id);
+    let statusCode=200;
+    if(!result.success && result.rowsAffected==0) statusCode=404;
+    if(!result.success && !("rowsAffected" in result)) statusCode=500;
+    res.status(statusCode).json({message: result.message});
 });
 
 export default userRouter;

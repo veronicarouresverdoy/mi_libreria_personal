@@ -12,7 +12,6 @@ class FormValidator {
 
     constructor(formId: string) {
         this.form = document.querySelector(`#${formId}`) as HTMLFormElement;
-        console.log(this.form);
         this.errorMessages = new Map();
         this.initializeValidation();
     }
@@ -83,15 +82,11 @@ class FormValidator {
 
     private showError(fieldName: string, message: string): void {
         const input = this.form.querySelector(`#${fieldName}-field`) as HTMLInputElement;
-        console.log(input);
         let errorDiv = input.parentElement?.querySelector('.error-message');
-        console.log(errorDiv);
         if (!errorDiv) {
             errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
-            
             input.parentElement?.appendChild(errorDiv);
-            console.log(input.parentElement);
         }
         
         errorDiv.textContent = message;

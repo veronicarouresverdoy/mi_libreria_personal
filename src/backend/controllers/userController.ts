@@ -1,4 +1,5 @@
 import { deleteUserById, findUserById, getUsers, saveNewUser } from "../models/userModel.js";
+import { DeleteResult } from "../types/DeleteResult.js";
 import { User } from "../types/User.js";
 
 
@@ -27,7 +28,7 @@ export async function getUser(id:string):Promise<string>{
     return result;
 }
 
-export async function deleteUser(id:string):Promise<string>{
+export async function deleteUser(id:string):Promise<DeleteResult>{
     const result = await deleteUserById(id);
     return result;
 }
