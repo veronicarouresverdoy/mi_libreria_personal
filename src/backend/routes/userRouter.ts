@@ -4,6 +4,7 @@ import { deleteUser, getAllUsers, getUser, newUser, updateUser } from '../contro
 import { validateNumericParams } from '../middlewares/validateNumericParams.js';
 import { DeleteResult } from '../types/DeleteResult.js';
 
+
 const userRouter = Express.Router();
 
 userRouter.get("/", async (req: Express.Request, res: Express.Response) => {
