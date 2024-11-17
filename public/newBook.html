@@ -1,0 +1,37 @@
+public/newBook.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="./src/frontend/validateBookForm.js"></script>
+    <title>Registro de libro</title>
+</head>
+<body>
+    <form action="/api/v1/books" method="POST" id="bookForm">
+        <p>
+            <label for="title-field">Título: </label>
+            <input type="text" name="title" id="title-field" required>
+        </p>
+        <p>
+            <label for="author-field">Autor: </label>
+            <input type="text" name="author" id="author-field" required>
+        </p>
+        <p>
+            <label for="genre-field">Género:</label>
+            <input type="text" name="genre_id" id="genre-field" required>
+        </p>
+        <p>
+            <label for="published-date-field">Fecha de publicación:</label>
+            <input type="date" name="published_date" id="published-date-field" required>
+        </p>
+        <p>
+            <label for="summary-field">Resumen:</label>
+            <textarea name="summary" id="summary-field" required></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Registrar libro">
+        </p>
+    </form>
+</body>
+</html>
