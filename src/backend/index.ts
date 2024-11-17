@@ -10,6 +10,7 @@ const port = 3000;
 app.use(Express.urlencoded({ extended: true }));
 
 app.use(Express.static(publicPath));
+app.use(Express.json());
 
 app.use("/", staticRouter);
 app.use("/api/v1/", apiRouter);

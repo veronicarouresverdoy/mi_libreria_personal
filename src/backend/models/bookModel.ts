@@ -48,8 +48,9 @@ export async function updateBookInModel(book: Book, id: string): Promise<Process
 
 export async function getBooks(): Promise<Book[]> {
     try {
-        const queryString = `SELECT * FROM "book"`;
+        const queryString = `SELECT * FROM "book";`;
         const result = await pool.query(queryString);
+        console.log('Registros obtenidos:', result.rows);
         return result.rows;
     } catch (error) {
         console.error(`Error al obtener libros: ${(error as Error).message}`);
@@ -68,7 +69,7 @@ export async function findBookById(id: string): Promise<Book | null> {
     }
 }
 
-export async function deleteBookById(id: string): Promise<DeleteResult> {
+export async function deleteBookById(req: unknown, res: unknown, id: string): Promise<DeleteResult> {
     try {
         const queryString = `DELETE FROM "book" WHERE "id" = $1`;
         const result = await pool.query(queryString, [id]);

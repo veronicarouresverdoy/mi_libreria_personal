@@ -3,16 +3,22 @@ import { Book } from '../types/book.js';
 import { deleteBook, getAllBooks, getBook, newBook, updateBook } from '../controllers/bookController.js';
 import { validateNumericParams } from '../middlewares/validateNumericParams.js';
 import { DeleteResult } from '../types/DeleteResult.js';
+import { getBooks } from '../models/bookModel.js';
 
 const bookRouter = Express.Router();
 
 bookRouter.get("/", async (req: Express.Request, res: Express.Response) => {
-    const result = await getAllBooks(req, res);
-    res.json(result);
-  });
+  try {
+      const result = await getAllBooks(req, res);
+      res.json(result);
+  } catch (error) {
+      console.error(`Error al obtener todos los libros: ${(error as Error).message}`);
+      res.status(500).json({ message: 'Error al obtener todos los libros' });
+  }
+});
   
 bookRouter.get("/:id", validateNumericParams, async (req: Express.Request, res: Express.Response) => {
-    const result = await getBook(req, res);
+    const result = await getBooks();
     res.send(result);
   });
  

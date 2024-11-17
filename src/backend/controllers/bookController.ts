@@ -1,11 +1,18 @@
 import { Request, Response } from 'express';
 import { Book } from '../types/book.js';
 import { DeleteResult } from '../types/DeleteResult.js';
+import { getBooks, saveNewBook } from '../models/bookModel.js';
 
 let books: Book[] = []; 
 
-export const getAllBooks = (req: Request, res: Response) => {
-    res.json(books);
+export const getAllBooks = async (req: Request, res: Response) => {
+    try {
+        const books = await getBooks();
+        res.json(books);
+    } catch (error) {
+        console.error(`Error al obtener libros: ${(error as Error).message}`);
+        res.status(500).json({ message: 'Error al obtener libros' });
+    }
 };
 
 export const getBook = (req: Request, res: Response) => {
@@ -17,13 +24,16 @@ export const getBook = (req: Request, res: Response) => {
         res.status(404).send('Libro no encontrado');
     }
 };
-
-export const newBook = (req: Request, res: Response) => {
+export const newBook = async (req: Request, res: Response) => {
     const newBook: Book = req.body;
-    books.push(newBook);
-    res.status(201).json(newBook);
+    console.log('Datos recibidos:', newBook);
+    const result = await saveNewBook(newBook);
+    if (result.success) {
+        res.status(201).json(newBook);
+    } else {
+        res.status(500).json({ message: result.message });
+    }
 };
-
 export const updateBook = (req: Request, res: Response) => {
     const bookId = parseInt(req.params.id);
     const index = books.findIndex(b => b.id === bookId);
@@ -45,3 +55,4 @@ export const deleteBook = (req: Request, res: Response): DeleteResult => {
         return { success: false, message: 'Libro no encontrado', rowsAffected: 0 };
     }
 }; 
+
