@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
 import { Book } from '../types/book.js';
 import { DeleteResult } from '../types/DeleteResult.js';
-import { getBooks, saveNewBook } from '../models/bookModel.js';
+import { deleteBookById, findBookById, getBooks, saveNewBook } from '../models/bookModel.js';
+import { ProcessResult } from '../types/ProcessResult.js';
+import { updateUserInModel } from '../models/userModel.js';
+import { User } from '../types/user.js';
 
 let books: Book[] = []; 
 
@@ -15,15 +18,12 @@ export const getAllBooks = async (req: Request, res: Response) => {
     }
 };
 
-export const getBook = (req: Request, res: Response) => {
-    const bookId = parseInt(req.params.id);
-    const book = books.find(b => b.id === bookId);
-    if (book) {
-        res.json(book);
-    } else {
-        res.status(404).send('Libro no encontrado');
-    }
-};
+
+export async function getBook(id:string):Promise<Book | null>{
+    const result = await findBookById(id);
+    return result;
+}
+
 export const newBook = async (req: Request, res: Response) => {
     const newBook: Book = req.body;
     console.log('Datos recibidos:', newBook);
@@ -34,25 +34,9 @@ export const newBook = async (req: Request, res: Response) => {
         res.status(500).json({ message: result.message });
     }
 };
-export const updateBook = (req: Request, res: Response) => {
-    const bookId = parseInt(req.params.id);
-    const index = books.findIndex(b => b.id === bookId);
-    if (index !== -1) {
-        books[index] = { ...books[index], ...req.body };
-        res.json(books[index]);
-    } else {
-        res.status(404).send('Libro no encontrado');
-    }
-};
 
-export const deleteBook = (req: Request, res: Response): DeleteResult => {
-    const bookId = parseInt(req.params.id);
-    const index = books.findIndex(b => b.id === bookId);
-    if (index !== -1) {
-        books.splice(index, 1);
-        return { success: true, message: 'Libro eliminado', rowsAffected: 1 };
-    } else {
-        return { success: false, message: 'Libro no encontrado', rowsAffected: 0 };
-    }
-}; 
 
+export async function deleteBook(id:string):Promise<DeleteResult>{
+    const result = await deleteBookById(id);
+    return result;
+}
